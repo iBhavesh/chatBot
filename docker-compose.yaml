@@ -1,0 +1,21 @@
+services:
+  groww-fe:
+    extends:
+      file: ./groww-fe/docker-compose.yaml
+      service: groww-fe
+  db:
+    extends:
+      file: ./groww-be/docker-compose.yaml
+      service: db
+  groww-be:
+    extends:
+      file: ./groww-be/docker-compose.yaml
+      service: groww-be
+  bot-admin:
+    extends:
+      file: ./bot-admin/docker-compose.yaml
+      service: bot-admin
+  bot-be:
+    extends:
+      file: ./bot-be/docker-compose.yaml
+      service: bot-be

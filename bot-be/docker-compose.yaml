@@ -1,0 +1,22 @@
+services:
+  db:
+    extends:
+      file: ../docker-compose.mongo.yaml
+      service: db
+  bot-be:
+    container_name: bot-be
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - target: 4001
+        published: 4001
+    volumes:
+      - /workspace/node_modules
+      - ./:/workspace
+    environment:
+      - DB_URL=mongodb://db:27017
+      - port=4001
+      - GROWW_URL=host.docker.internal:4000
+    depends_on:
+      - db

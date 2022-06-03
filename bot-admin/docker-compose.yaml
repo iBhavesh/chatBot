@@ -1,0 +1,12 @@
+services:
+  bot-admin:
+    container_name: bot-admin
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /workspace/node_modules
+      - .:/workspace
+    ports:
+      - "3001:3000"
+    

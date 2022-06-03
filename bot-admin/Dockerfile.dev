@@ -1,0 +1,10 @@
+FROM node:18.2-alpine3.15 AS BUILDER
+WORKDIR /workspace
+COPY --chown=node:node package.json yarn.lock* ./
+RUN yarn install
+
+FROM node:18.2-alpine3.15
+WORKDIR /workspace
+COPY --from=BUILDER --chown=node:node /workspace .
+COPY --chown=node:node . .
+CMD ["yarn","dev"]

@@ -1,0 +1,20 @@
+services:
+  db:
+    image: "mongo:5"
+    ports:
+      - "27018:27017"
+  groww-be:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    ports:
+      - target: 4000
+        published: 4000
+    volumes:
+      - /workspace/node_modules
+      - ./:/workspace
+    environment:
+      - DB_URL=mongodb://db:27017
+      - port=4000
+    depends_on:
+      - db
