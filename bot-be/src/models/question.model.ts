@@ -12,7 +12,7 @@ export interface QuestionDocument extends Document {
 const questionSchema = new Schema<QuestionDocument>({
   categoryId: {
     type: Schema.Types.ObjectId,
-    ref: "Category",
+    ref: "category",
     required: true,
   },
   question: {
@@ -29,8 +29,8 @@ const questionSchema = new Schema<QuestionDocument>({
   },
   frequency: {
     type: Number,
-    required: true,
     select: false,
+    default: 0,
   },
   evalCondition: {
     type: [String],

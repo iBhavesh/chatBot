@@ -1,26 +1,36 @@
-import { Document, model, Schema } from "mongoose";
+import { Document, model, Schema, Types } from "mongoose";
 
 export interface CategoryDocument extends Document {
   name: string;
-  parent: string;
+  parent: Types.ObjectId;
   isLeafNode: boolean;
+  path: string;
 }
 
-const categorySchema = new Schema<CategoryDocument>({
-  name: {
-    type: String,
-    required: true,
+const categorySchema = new Schema<CategoryDocument>(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    parent: {
+      type: Schema.Types.ObjectId,
+      ref: "category",
+    },
+
+    isLeafNode: {
+      type: Boolean,
+      default: true,
+    },
+    path: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
-  parent: {
-    type: Schema.Types.ObjectId,
-    ref: "Category",
-  },
-  isLeafNode: {
-    type: Boolean,
-    default: true,
-  },
-},{
-  id:true
-});
+  {
+    id: true,
+  }
+);
 
 export default model("category", categorySchema, "category");

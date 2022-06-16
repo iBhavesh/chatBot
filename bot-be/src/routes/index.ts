@@ -8,7 +8,7 @@ import "../utils/auth";
 
 export const router = Router();
 
-router.use(passport.authenticate("jwt", { session: false }));
+// router.use(passport.authenticate("jwt", { session: false }));
 
 router.use(categoryRouter);
 router.use(questionRouter);

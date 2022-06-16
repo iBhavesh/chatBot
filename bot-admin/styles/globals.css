@@ -1,16 +1,16 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.custom-input:focus-within ~ label,
+.custom-input:not(:placeholder-shown) ~ label {
+  @apply left-0 m-unset -translate-y-8 transform;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.custom-input:focus-within ~ label {
+  @apply text-gray-700;
 }
 
-* {
-  box-sizing: border-box;
+.CategoryItem:hover .TrashIcon {
+  @apply visible;
 }
