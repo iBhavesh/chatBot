@@ -1,7 +1,9 @@
 import React from "react";
+
 import { TrashIcon } from "@heroicons/react/outline";
 import { useAppDispatch } from "../redux/hooks";
 import { deleteCategory } from "../redux/categoriesSlice";
+import { showMessage } from "../redux/uiSlice";
 
 type Props = {
   name: string;
@@ -11,8 +13,8 @@ type Props = {
 function CategoryItem({ name, id }: Props) {
   const dispatch = useAppDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteCategory(id));
+  const handleDelete = async () => {
+    await dispatch(deleteCategory(id));
   };
 
   return (

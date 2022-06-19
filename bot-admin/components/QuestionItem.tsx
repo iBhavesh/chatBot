@@ -3,6 +3,7 @@ import { ChevronUpIcon, TrashIcon } from "@heroicons/react/outline";
 import React from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { deleteQuestion } from "../redux/questionsSlice";
+import { showMessage } from "../redux/uiSlice";
 
 type Props = {
   question: { [key: string]: any };
@@ -10,8 +11,9 @@ type Props = {
 
 const QuestionItem = ({ question }: Props) => {
   const dispatch = useAppDispatch();
-  const handleDelete = () => {
-    dispatch(deleteQuestion(question._id));
+  const handleDelete = async () => {
+    await dispatch(deleteQuestion(question._id));
+    dispatch(showMessage({message:"Question Deleted Successfully!",type:"success"}))
   };
 
   return (

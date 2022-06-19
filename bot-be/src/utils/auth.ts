@@ -15,7 +15,7 @@ passport.use(
         if (token.type !== "ACCESS_TOKEN") throw new Error("Invalid JWT");
         return done(null, token.user);
       } catch (error) {
-        return done(error);
+        return done(null);
       }
     }
   )

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../axios.config";
+import {showMessage} from "./uiSlice";
 
 export type InitialState = {
   questions: Array<{ [key: string]: any }>;
@@ -18,8 +19,10 @@ export const fetchQuestions = createAsyncThunk("questionsSlice/fetchQuestions", 
 
 export const deleteQuestion = createAsyncThunk(
   "questionsSlice/deleteQuestion",
-  async (id: string) => {
-    await axiosInstance.delete(`/questions/${id}`);
+  async (id: string,{dispatch}) => {
+   const response =  await axiosInstance.delete(`/questions/${id}`);
+   if(response.status === 200)
+   dispatch(showMessage({message:"Question deleted successfully!"}))
   }
 );
 

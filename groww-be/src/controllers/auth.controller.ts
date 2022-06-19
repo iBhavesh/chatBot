@@ -8,13 +8,13 @@ import { User } from "../models";
 export const register: RequestHandler = async (req, res) => {
   const errors = validationResult(req).formatWith(({ msg }) => msg);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors });
+    return res.status(400).json({ status:"error",type:"validation",errors:errors.array() });
   }
   try {
     const password = await bcrypt.hash(req.body.password, 10);
     const user = new User({
       name: req.body.name,
-      email_id: req.body.email_id,
+      email_id: req.body.email,
       password: password,
     });
     await user.save();
@@ -31,10 +31,10 @@ export const register: RequestHandler = async (req, res) => {
 export const login: RequestHandler = async (req, res) => {
   const errors = validationResult(req).formatWith(({ msg }) => msg);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors });
+    return res.status(400).json({ status:"error",type:"validation",errors:errors.mapped() });
   }
   try {
-    const user = await User.findOne({ email_id: req.body.email_id });
+    const user = await User.findOne({ email_id: req.body.email });
     if (!user) {
       return res.status(404).json({ errors: "User not found" });
     }

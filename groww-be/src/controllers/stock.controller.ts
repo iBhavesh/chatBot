@@ -1,5 +1,6 @@
 import e, { RequestHandler } from "express";
 import { Stock, StockOrder } from "../models";
+import stocksData from '../data/stocks.json'
 
 export const getAllStocks: RequestHandler = async (req, res) => {
   const { skip = 0, limit = 10 } = req.query;
@@ -11,19 +12,17 @@ export const getAllStocks: RequestHandler = async (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
-  return res.status(500).send("Internal server error");
 };
 
 export const getStock: RequestHandler = async (req, res) => {
   const { id } = req.params;
   try {
-    const stock = await Stock.findOne({ searchId: id });
+    const stock = await Stock.findById( id );
     if (stock) return res.status(200).json(stock);
     else return res.status(200).send("Stock not found");
   } catch (error) {
     res.status(400).send(error);
   }
-  return res.status(500).send("Internal server error");
 };
 
 export const buyStock: RequestHandler = async (req, res) => {
@@ -38,5 +37,16 @@ export const buyStock: RequestHandler = async (req, res) => {
     }
   } catch (error) {
     return res.status(400).send(error);
+  }
+}
+
+export const populateStocks:RequestHandler = async (req,res) => {
+  try {
+    for( const data of stocksData) {
+      await Stock.create(data);
+    }
+    return res.send("Stocks populated");
+  } catch(e) {
+    return res.status(400).json({error:e.message})
   }
 }

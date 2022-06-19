@@ -6,7 +6,6 @@ export interface UserDocument extends Document {
   email_verified: boolean;
   name: string;
   mobile: string | null;
-  user_id: string;
   kyc_status: string;
   order_limit: number;
 }

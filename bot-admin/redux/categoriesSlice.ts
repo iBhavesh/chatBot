@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../axios.config";
+import {showMessage} from './uiSlice';
 
 export type InitialState = {
   categories: Array<{ [key: string]: any }>;
@@ -16,16 +17,24 @@ export const fetchCategories = createAsyncThunk("categoriesSlice/fetchCategories
   return response.data;
 });
 
-export const addCategory = createAsyncThunk("categoriesSlice/addCategory", async (data: any) => {
+export const addCategory = createAsyncThunk("categoriesSlice/addCategory", async (data: any,{dispatch}) => {
   const response = await axiosInstance.post("/category", data);
+  if(response.status.toString().startsWith("2"))
+   dispatch(showMessage({message:"Category added successfully!",type:"success"}))
   return response.data;
 });
 
 export const deleteCategory = createAsyncThunk(
   "categoriesSlice/deleteCategory",
-  async (id: string) => {
-    const response = await axiosInstance.delete(`/category/${id}`);
-    return response.data;
+  async (id: string,{dispatch,rejectWithValue}) => {
+    try {
+      const response = await axiosInstance.delete(`/category/${id}`);
+      if(response.status === 200)
+      dispatch(showMessage({message:"Category deleted successfully!",type:"success"}))
+    }
+    catch(e) {
+      console.log(e)
+    }
   }
 );
 
@@ -58,7 +67,8 @@ const categoriesSlice = createSlice({
       .addCase(deleteCategory.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(deleteCategory.rejected, (state) => {
+      .addCase(deleteCategory.rejected, (state,action) => {
+        console.log("deleteCategory",action)
         state.status = "error";
       })
       .addCase(deleteCategory.fulfilled, (state, action) => {

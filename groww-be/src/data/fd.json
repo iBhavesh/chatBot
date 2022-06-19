@@ -1,0 +1,26 @@
+[
+	{
+		"productName":"IndusInd 1 year",
+		"maxAmount": 1000000,
+		"minAmount": 1000,
+		"interestRate":6,
+		"compoundingType": "QUARTERLY",
+		"logoUrl":"https://storage.googleapis.com/groww-assets/banking-assets/img/indus-ind.png"
+	},
+	{
+		"productName":"Bajaj 1 year",
+		"maxAmount": 500000,
+		"minAmount": 15000,
+		"interestRate":5.85,
+		"compoundingType": "ANNUALLY",
+		"logoUrl":"https://assets-netstorage.groww.in/app-assets/others/Bajaj_1200x1200px-01.jpeg"
+	},
+	{
+		"productName":"Equitas 1 year",
+		"maxAmount": 90000,
+		"minAmount": 5000,
+		"interestRate":6.5,
+		"compoundingType": "QUARTERLY",
+		"logoUrl":"https://assets-netstorage.groww.in/app-assets/others/equitasBank.svg"
+	}
+]

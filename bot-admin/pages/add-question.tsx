@@ -85,7 +85,8 @@ function AddQuestions() {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // resetForm();
           try {
-            axiosInstance.post("/question", values);
+            await axiosInstance.post("/question", values);
+            resetForm()
           } catch (error) {
             console.log("ERROR", error);
           }

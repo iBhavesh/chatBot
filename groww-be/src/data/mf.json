@@ -1,0 +1,38 @@
+[
+	{
+		"schemeName":"ICICI Prudential Technology Direct Plan Growth",
+		"nav":134.11,
+		"return3Y":29.61,
+		"fundSize":8772.50,
+		"min_sip_investment":100,
+		"max_sip_investment":1999999,
+		"logoUrl":"https://assets-netstorage.groww.in/mf-assets/logos/icici_groww.png"
+	},
+	{
+		"schemeName":"Axis Small Cap Fund Direct Growth",
+		"nav":60.56,
+		"return3Y":25.28,
+		"fundSize":8984.1837,
+		"min_sip_investment":100,
+		"max_sip_investment":1999999,
+		"logoUrl":"https://assets-netstorage.groww.in/mf-assets/logos/axis_groww.png"
+	},
+	{
+		"schemeName":"Tata Digital India Fund Direct Growth",
+		"nav":32.4489,
+		"return3Y":25.89,
+		"fundSize":5511.94219172,
+		"min_sip_investment":100,
+		"max_sip_investment":1999999,
+		"logoUrl":"https://assets-netstorage.groww.in/mf-assets/logos/tata_groww.png"
+	},
+	{
+		"schemeName":"Canara Robeco Small Cap Fund Direct Growth",
+		"nav":22.4,
+		"return3Y":31.12,
+		"fundSize":2559.964,
+		"min_sip_investment":100,
+		"max_sip_investment":1999999,
+		"logoUrl":"https://assets-netstorage.groww.in/mf-assets/logos/canara_groww.png"
+	}
+]

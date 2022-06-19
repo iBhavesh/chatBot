@@ -3,7 +3,7 @@ import { User } from "../models";
 
 export const registerValidator = [
   body("name").trim().notEmpty().withMessage("Name is required"),
-  body("email_id")
+  body("email")
     .isEmail()
     .withMessage("Email must be valid")
     .normalizeEmail()
@@ -14,13 +14,13 @@ export const registerValidator = [
       }
     }),
   body("password")
-    .isStrongPassword({
-      minLength: 8,
+    .isLength({
+      min: 6,
     })
-    .withMessage("Password must be at least 8 characters long."),
+    .withMessage("Password must be at least 6 characters long."),
 ];
 
 export const loginValidator = [
-  body("email_id").isEmail().withMessage("Email must be valid"),
+  body("email").isEmail().withMessage("Email must be valid"),
   body("password").notEmpty().withMessage("Password is required"),
 ];

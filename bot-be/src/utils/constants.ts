@@ -7,13 +7,21 @@ export const EVAL_CONDITION = {
 
 export const GROWW_URL = process.env.GROWW_URL;
 export const DYNAMIC_OPTIONS = {
-  "root->stocks->single": [
-    "stock.bseScriptCode",
-    "stock.nseScriptCode",
+  singleStock: [
     "stock.displayName",
     "stock.low",
     "stock.high",
     "stock.ltp",
+    "stock.dayChange",
+    "stock.dayChangePerc",
+    "stock.marketCap",
+    "stock.pbRatio",
+    "stock.industryPe",
+    "stock.roe",
+    "stock.epsTtm",
+    "stock.bookValue",
+    "stock.yearHighPrice",
+    "stock.yearLowPrice",
   ],
   USER_LOGGED_IN: [
     "user.email_id",
@@ -24,3 +32,13 @@ export const DYNAMIC_OPTIONS = {
     "user.order_limit",
   ],
 };
+
+export const UN_DELETE_ABLE = [
+  "root",
+  "singleStock",
+  "singleMF",
+  "singleFD",
+  "all",
+];
+
+export const UN_PARENT_ABLE = ["singleStock", "singleMF", "singleFD", "all"];
