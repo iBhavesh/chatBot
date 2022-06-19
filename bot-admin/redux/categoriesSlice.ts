@@ -33,7 +33,9 @@ export const deleteCategory = createAsyncThunk(
       dispatch(showMessage({message:"Category deleted successfully!",type:"success"}))
     }
     catch(e) {
-      console.log(e)
+      if(e.name && e.ame === "AxiosError"){
+        dispatch(showMessage({message:e.response.data.msg,type:"success"}))
+      }
     }
   }
 );
