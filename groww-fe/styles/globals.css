@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 100vh;
+    border: 1px solid #d9d9d9;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #cdcccc;
+  }
+
+  @keyframes typingAnimation {
+    0% {
+      @apply bg-slate-300;
+      transform: scale(1.0);
+    }
+    20% {
+      @apply bg-slate-400;
+      transform: scale(1.3);
+    }
+
+    40% {
+      @apply bg-slate-300;
+      transform: scale(1.0);
+    }
+  }
+
+  .ti-animate {
+    animation: typingAnimation 1.3s infinite linear;
+  }
+
+  .ti-animate:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  .ti-animate:nth-child(2) {
+    animation-delay: 350ms;
+  }
+  .ti-animate:nth-child(3) {
+    animation-delay: 700ms;
+  }
+}
