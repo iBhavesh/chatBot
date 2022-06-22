@@ -12,6 +12,7 @@ const whiteList = [
   "http://localhost:3000",
   "http://localhost:3001",
   "https://hoppscotch.io",
+  "https://groww-fe.vercel.app"
 ];
 
 const corsOptions: CorsOptions = {

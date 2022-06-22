@@ -8,6 +8,7 @@ import HeaderMenu from "./HeaderMenu";
 
 const Header = () => {
   const authenticated = useAuth();
+  
   return (
     <div
       className="md:flex md:h-20 justify-between items-center

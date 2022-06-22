@@ -62,14 +62,16 @@ export const getQuestion: RequestHandler = async (req, res) => {
     const question = await Question.findById(id).lean();
     if (!question)
       return res.status(404).json({ message: "Question not found" });
-    const func = new Function(
-      "user",
-      "stock",
-      "mf",
-      "fd",
-      "return '" + question?.answer + "'"
-    );
-    question.answer = func(user, stock, mf, fd);
+    if (question.isDynamic) {
+      const func = new Function(
+        "user",
+        "stock",
+        "mf",
+        "fd",
+        "return '" + question?.answer + "'"
+      );
+      question.answer = func(user, stock, mf, fd);
+    }
     return res.status(200).json(question);
   } catch (error) {
     console.log(error);
@@ -97,7 +99,7 @@ export const getQuestions: RequestHandler = async (req, res) => {
   try {
     const { path } = req.query;
     const evalCondition: string[] = [""];
-    const specialCategory: string[] = [];
+    const specialCategory: string[] = ["all"];
     let user: any = {};
     if (req.query.userId) {
       user = (
@@ -117,15 +119,14 @@ export const getQuestions: RequestHandler = async (req, res) => {
       specialCategory.push("singleStock");
     }
 
-    const category = await Category.findOne({
+    const categories = await Category.find({
       $or: [{ path: path }, { name: { $in: specialCategory } }],
-    }).lean();
-    console.log(category, evalCondition);
-    if (category) {
+    }).distinct("_id");
+    if (categories.length > 0) {
       const questions = await Question.find(
         {
           $and: [
-            { categoryId: category._id },
+            { categoryId: { $in: categories } },
             {
               $or: [
                 { evalCondition: { $in: evalCondition } },

@@ -23,7 +23,7 @@ const fdSchema = new Schema<FDDocument>({
     required: true,
   },
   interestRate: {
-    type: String,
+    type: Number,
     required: true,
   },
   compoundingType: {

@@ -1,5 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { Fragment } from "react";
 import { useAppDispatch } from "../redux/hooks";
 import { logout } from "../redux/userSlice";
@@ -38,13 +39,15 @@ function HeaderMenu() {
           <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (
-                <button
-                  className={`${
-                    active ? "bg-gray-50" : "text-gray-900"
-                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                >
-                  Settings
-                </button>
+                <Link href="/settings" >
+                  <a
+                    className={`${
+                      active ? "bg-gray-50" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    Settings
+                  </a>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>

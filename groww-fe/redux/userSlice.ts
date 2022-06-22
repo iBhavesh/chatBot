@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import jwtDecode from "jwt-decode";
-import axios from "../axios.config";
+import { backendInstance } from "../axios.config";
 
 type User = {
   _id: number;
@@ -25,7 +25,7 @@ const initialState: UserInitialState = {
 export const fetchUserInfo = createAsyncThunk(
   "userSlice/fetchUserInfo",
   async () => {
-    const response = await axios.get("/user");
+    const response = await backendInstance.get("/user");
     return response.data;
   }
 );
@@ -34,7 +34,7 @@ export const login = createAsyncThunk(
   "userSlice/login",
   async (data: any, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/login", data);
+      const response = await backendInstance.post("/auth/login", data);
       return response.data;
     } catch (error) {
       if (error instanceof AxiosError)

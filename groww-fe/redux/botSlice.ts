@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import Router from "next/router";
+import { botInstance } from "../axios.config";
 import { RootState } from "./store";
 
 export type Message = {
@@ -28,7 +29,7 @@ export const getQuestions = createAsyncThunk(
   "botSlice/getQuestions",
   async (options: NodeJS.Dict<any>, thunkApi) => {
     const state = thunkApi.getState();
-    const response = await axios.get("http://localhost:4001/questions", {
+    const response = await botInstance.get("/questions", {
       params: {
         ...options,
         userId: (state as any).user.user?._id,
@@ -41,10 +42,10 @@ export const getQuestions = createAsyncThunk(
 export const selectQuestion = createAsyncThunk(
   "botSlice/selectQuestion",
   async (arg: { id: string; index: number }, thunkApi) => {
-    axios.patch(`http://localhost:4001/question/${arg.id}/increase`);
-    const state:any = thunkApi.getState();
-    const response = await axios.get(
-      `http://localhost:4001/question/${arg.id}`,
+    botInstance.patch(`/question/${arg.id}/increase`);
+    const state: any = thunkApi.getState();
+    const response = await botInstance.get(
+      `/question/${arg.id}`,
       {
         params: {
           ...Router.query,
@@ -64,13 +65,17 @@ const botSlice = createSlice({
       state.messages = [];
       state.status = "idle";
     },
-    showCustomMessage(state,action) {
-      state.messages.push({fromUser:false,message:action.payload});
+    showCustomMessage(state, action) {
+      state.messages.push({ fromUser: false, message: action.payload });
       state.showBot = true;
+      state.questions = [];
     },
     hideBot(state) {
       state.showBot = false;
-    }
+    },
+    setMessage(state, action) {
+      state.messages.push({ fromUser: true, message: action.payload });
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -83,6 +88,7 @@ const botSlice = createSlice({
       })
       .addCase(getQuestions.rejected, (state) => {
         state.status = "error";
+        state.questions = [];
       })
       .addCase(selectQuestion.pending, (state, action) => {
         state.status = "loading";
@@ -104,6 +110,7 @@ const botSlice = createSlice({
       }),
 });
 
-export const { reset,showCustomMessage,hideBot } = botSlice.actions;
+export const { reset, showCustomMessage, hideBot, setMessage } =
+  botSlice.actions;
 
 export default botSlice.reducer;

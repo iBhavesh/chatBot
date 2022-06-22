@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import BuyStockCard from "../../components/BuyStockCard";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { fetchStocks, getSingleStock } from "../../redux/stockSlice";
 import getLayout from "../../utils/getLayout";
@@ -25,13 +26,13 @@ const SingleStock: NextPageWithLayout<Props> = (props) => {
       <Head>
         <title>Groww | {stock?.displayName}</title>
       </Head>
-      <div className="flex flex-col w-1/2">
+      <div className="flex flex-col w-1/2 mr-10">
         <div>{<Image alt="" src={stock.logoUrl} height={40} width={40} />}</div>
         <div>
           <h5 className="text-lg">{stock.displayName}</h5>
           <h5 className="font-medium mt-1 text-2xl">₹{stock.ltp}</h5>
         </div>
-        <div className="flex  mt-4">
+        <div className="flex  mt-20">
           <div className="w-1/2 border-r-2 border-gray-300 mr-1 p-2">
             <div className="flex justify-between mb-2">
               <h4 className="text-gray-600">Market Cap</h4>
@@ -62,11 +63,7 @@ const SingleStock: NextPageWithLayout<Props> = (props) => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col">
-        <div className="flex">
-          <label htmlFor="quantity">Quantity</label>
-        </div>
-      </div>
+      <BuyStockCard price={stock.ltp} />
     </div>
   );
 };

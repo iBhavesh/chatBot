@@ -3,7 +3,7 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "../axios.config";
+import {backendInstance} from "../axios.config";
 import { RootState } from "./store";
 
 export type MF = {
@@ -30,7 +30,7 @@ const initialState: InitialState = {
 export const fetchMFS = createAsyncThunk(
   "mfSlice/fetchMFS",
   async () => {
-    const response = await axios.get("/mf");
+    const response = await backendInstance.get("/mf");
     return response.data;
   }
 );

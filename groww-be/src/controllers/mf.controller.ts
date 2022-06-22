@@ -29,7 +29,7 @@ export const buyMF: RequestHandler = async (req, res) => {
   const { id } = req.params;
   const { quantity } = req.body;
   try {
-    const mf = await Stock.findById(id);
+    const mf = await MF.findById(id);
     if (mf) {
       return res.status(200).json(mf);
     } else {
@@ -47,6 +47,6 @@ export const populateMF:RequestHandler = async (req,res) => {
     }
     return res.send("MF populated");
   } catch(e) {
-    return res.status(400).json({error:e.message})
+    return res.status(400).json({error:e})
   }
 }

@@ -3,7 +3,7 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "../axios.config";
+import {backendInstance} from "../axios.config";
 import { RootState } from "./store";
 
 export type Stock = {
@@ -38,7 +38,7 @@ const initialState: InitialState = {
 export const fetchStocks = createAsyncThunk(
   "stockSlice/fetchStocks",
   async () => {
-    const response = await axios.get("/stocks");
+    const response = await backendInstance.get("/stocks");
     return response.data;
   }
 );

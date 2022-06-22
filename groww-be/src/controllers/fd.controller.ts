@@ -47,6 +47,6 @@ export const populateFD:RequestHandler = async (req,res) => {
     }
     return res.send("FD populated");
   } catch(e) {
-    return res.status(400).json({error:e.message})
+    return res.status(400).json({error:e})
   }
 }

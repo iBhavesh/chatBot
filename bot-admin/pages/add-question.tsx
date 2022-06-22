@@ -6,7 +6,9 @@ import { Dialog, Switch, Transition } from "@headlessui/react";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import Input from "../components/Input";
+import TextArea from "../components/TextArea";
 import { getLeafNodes } from "../redux/categoriesSlice";
+import { showMessage } from "../redux/uiSlice";
 import axiosInstance from "../axios.config";
 
 function AddQuestions() {
@@ -85,7 +87,9 @@ function AddQuestions() {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           // resetForm();
           try {
-            await axiosInstance.post("/question", values);
+            const response = await axiosInstance.post("/question", values);
+            if(response.status.toString().startsWith("2"))
+            dispatch(showMessage({message:"Question added successfully!",type:"success"}))
             resetForm()
           } catch (error) {
             console.log("ERROR", error);
@@ -137,7 +141,7 @@ function AddQuestions() {
                   className="text-md mt-2 pl-1 text-red-500"
                   name="question"
                 />
-                <div className="my-2 flex items-center">
+                <div className="my-4 flex items-center">
                   <label htmlFor="isDynamic" className="text-gray-700">
                     Dynamic
                   </label>
@@ -178,10 +182,10 @@ function AddQuestions() {
                     </option>
                   ))}
                 </select>
-                <Input
+                <TextArea
                   label="Answer"
                   ref={fieldValueRef}
-                  inputProps={{
+                  textAreaProps={{
                     ...props.getFieldProps("answer"),
                     type: "text",
                     name: "answer",
@@ -195,6 +199,7 @@ function AddQuestions() {
                 />
                 <div>
                   <button
+                  disabled={!props.values.isDynamic}
                     type="button"
                     onClick={openModal}
                     className="mt-3 ml-2 h-12 rounded-md bg-emerald-500 px-2 text-white transition-all hover:opacity-90 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-black"

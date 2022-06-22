@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { getQuestions } from "../../redux/botSlice";
+import React, { useEffect, useRef, useState } from "react";
+import { getQuestions, setMessage } from "../../redux/botSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import BotResponse from "./BotResponse";
 import BotQuestions from "./BotQuestions";
@@ -17,6 +17,7 @@ function MessageContainer(props: Props) {
   const [show, setShow] = useState(props.show);
   const botData = useAppSelector((state) => state.bot);
   const dispatch = useAppDispatch();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -41,6 +42,25 @@ function MessageContainer(props: Props) {
     );
   }, [router.pathname, router.query, dispatch]);
 
+  const handleKeyPress: React.KeyboardEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    if (event.key === "Enter") {
+      dispatch(setMessage(event.currentTarget.value));
+      event.currentTarget.value = "";
+      dispatch(
+        getQuestions({
+          path: ROUTEMAP[router.pathname as keyof typeof ROUTEMAP],
+          ...router.query,
+        })
+      );
+    }
+  };
+
+  useEffect(() => {
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [botData]);
+
   const className =
     props.show && show ? "opacity-100 bottom-20" : "opacity-0 bottom-0";
 
@@ -64,13 +84,15 @@ function MessageContainer(props: Props) {
         )}
         <BotQuestions question={botData.questions} />
         {botData.status === "loading" && <TypingIndicator />}
+        <div ref={containerRef} className="invisible" />
       </div>
       <input
         type="text"
         name="message"
         id="message"
         placeholder="Ask your question..."
-        className="outline-none px-1 py-2 "
+        className="outline-none px-1 py-2"
+        onKeyPress={handleKeyPress}
       />
     </div>
   ) : null;

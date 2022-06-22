@@ -7,8 +7,12 @@ type Props = {
   stock: Stock;
 };
 
-const StockItem = ({ stock }:Props) => {
+const StockItem = ({ stock }: Props) => {
   const textColor = stock.dayChange > 0 ? "text-green-500" : "text-red-500";
+  const dayChangePerc =
+    stock.dayChangePerc < 0
+      ? Math.round(stock.dayChangePerc * -1).toFixed(2)
+      : Math.round(stock.dayChangePerc).toFixed(2);
   return (
     <Link href={`/stocks/${stock._id}`}>
       <div className="transition-all hover:scale-[1.02] shadow-sm flex justify-between flex-col w-44 cursor-pointer mr-4 rounded-md bg-white border-2">
@@ -20,14 +24,12 @@ const StockItem = ({ stock }:Props) => {
         <div className="flex flex-col px-5 py-4">
           <span className="font-normal mr-2">₹{stock.ltp}</span>
           <span className={`${textColor}`}>
-            {stock.dayChange.toFixed(2)} (
-            {Math.round(stock.dayChangePerc).toFixed(2)}%)
+            {stock.dayChange.toFixed(2)} ({dayChangePerc}%)
           </span>
         </div>
       </div>
     </Link>
   );
 };
-
 
 export default StockItem;
