@@ -7,7 +7,7 @@ export const ROUTEMAP = {
   "/fixed-deposits/[singleFD]": "root->fd",
 };
 
-export const API_URL = process.env.NEXT_APP_API_URL ?? "http://localhost:4000";
-export const BOT_URL = process.env.NEXT_APP_BOT_URL ?? "http://localhost:4001";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000";
+export const BOT_URL = process.env.NEXT_PUBLIC_BOT_URL ?? "http://localhost:4001";
 export const USER_LOGO =
   "https://cdn-icons-png.flaticon.com/512/1946/1946429.png";

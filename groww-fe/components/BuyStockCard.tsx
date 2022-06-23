@@ -8,7 +8,7 @@ type Props = {
 };
 
 function BuyStockCard({ price }: Props) {
-  const [total, setTotal] = useState(price);
+  const [total, setTotal] = useState<string | number>(price);
   const dispatch = useAppDispatch();
 
   const auth = useAuth();
