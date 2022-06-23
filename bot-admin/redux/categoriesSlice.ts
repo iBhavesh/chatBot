@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSelector, createSlice } from "@reduxjs/toolkit";
+import { AxiosError } from "axios";
 import axiosInstance from "../axios.config";
 import {showMessage} from './uiSlice';
 
@@ -33,8 +34,8 @@ export const deleteCategory = createAsyncThunk(
       dispatch(showMessage({message:"Category deleted successfully!",type:"success"}))
     }
     catch(e) {
-      if(e.name && e.ame === "AxiosError"){
-        dispatch(showMessage({message:e.response.data.msg,type:"success"}))
+      if(e instanceof AxiosError && e.name === "AxiosError"){
+        dispatch(showMessage({message:e?.response?.data.msg,type:"success"}))
       }
     }
   }

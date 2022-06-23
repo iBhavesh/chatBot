@@ -39,10 +39,10 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   );
 }
 
-function CustomApp({ Component, pageProps }: AppPropsWithLayout) {
+function CustomApp(props: AppPropsWithLayout) {
   return (
     <Provider store={store}>
-      <MyApp Component={Component} {...pageProps} />
+      <MyApp {...props} />
     </Provider>
   );
 }

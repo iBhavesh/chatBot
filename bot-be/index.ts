@@ -12,8 +12,12 @@ const whiteList = [
   "http://localhost:3000",
   "http://localhost:3001",
   "https://hoppscotch.io",
-  "https://groww-fe.vercel.app"
+  "https://groww-fe.vercel.app",
 ];
+
+if(process.env.whiteList) {
+  whiteList.push(JSON.parse(process.env.whiteList));
+} 
 
 const corsOptions: CorsOptions = {
   origin(requestOrigin, callback) {

@@ -2,8 +2,8 @@ import React, { forwardRef } from "react";
 
 type Props = {
   textAreaProps?: React.DetailedHTMLProps<
-    React.InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
+    React.InputHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
   >;
   labelProps?: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLLabelElement>,
@@ -12,7 +12,7 @@ type Props = {
   label: string;
 };
 
-const TextArea = forwardRef<HTMLInputElement, Props>((props, ref) => {
+const TextArea = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
   return (
     <div>
       <div className="relative mt-8 border-2 rounded-lg pl-3 focus-within:border-emerald-500">

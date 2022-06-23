@@ -13,7 +13,7 @@ export const getAllCategory: RequestHandler = async (req, res) => {
     const category = await Category.find().lean();
     return res.status(200).json(category);
   } catch (error) {
-    return res.status(400).json({message:error.message});
+    return res.status(400).json({message:error});
   }
 };
 
@@ -83,7 +83,7 @@ export const deleteCategory: RequestHandler = async (req, res) => {
 
     return res.sendStatus(200);
   } catch (error) {
-    return res.status(400).json({message:error.message});
+    return res.status(400).json({message:error});
   }
 };
 
@@ -124,6 +124,6 @@ export const getDynamicOptions: RequestHandler = async (req, res) => {
     }
     return res.status(200).json(options);
   } catch (error) {
-    return res.status(400).json({message:error.message});
+    return res.status(400).json({message:error});
   }
 };
