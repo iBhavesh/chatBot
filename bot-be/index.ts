@@ -6,7 +6,7 @@ import cors, { CorsOptions } from "cors";
 
 config();
 
-const PORT = process.env.port || 8000;
+const PORT = process.env.PORT || 8000;
 const MONGOURL = process.env.DB_URL;
 const whiteList = [
   "http://localhost:3000",
@@ -45,6 +45,7 @@ if (MONGOURL)
     .then(() => {
       if (process.env.NODE_ENV !== "production")
         console.log("Connected to Database");
+      console.log(process.env.GROWW_URL)
     })
     .catch((err) => {
       console.log(err);

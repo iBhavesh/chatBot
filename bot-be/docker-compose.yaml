@@ -16,7 +16,7 @@ services:
       - ./:/workspace
     environment:
       - DB_URL=mongodb://db:27017
-      - port=4001
-      - GROWW_URL=host.docker.internal:4000
+      - PORT=4001
+      - GROWW_URL=http://172.17.0.1:4000
     depends_on:
       - db

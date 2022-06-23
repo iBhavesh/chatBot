@@ -7,7 +7,7 @@ import { router } from "./src/routes";
 
 config();
 
-const PORT = process.env.port || 8000;
+const PORT = process.env.PORT || 8000;
 const MONGOURL = process.env.DB_URL;
 const whiteList = [
   "http://localhost:3000",

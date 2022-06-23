@@ -41,22 +41,22 @@ export const getQuestion: RequestHandler = async (req, res) => {
     let fd: any = {};
     if (req.query.userId) {
       user = (
-        await axios.get(`http://172.17.0.1:4000/user/${req.query.userId}`)
+        await axios.get(`${process.env.GROWW_URL}/user/${req.query.userId}`)
       ).data;
     }
     if (req.query.singleStock) {
       stock = (
         await axios.get(
-          `http://172.17.0.1:4000/stocks/${req.query.singleStock}`
+          `${process.env.GROWW_URL}/stocks/${req.query.singleStock}`
         )
       ).data;
     }
     if (req.query.singleMF) {
-      mf = (await axios.get(`http://172.17.0.1:4000/mf/${req.query.singleMF}`))
+      mf = (await axios.get(`${process.env.GROWW_URL}/mf/${req.query.singleMF}`))
         .data;
     }
     if (req.query.singleFD) {
-      fd = (await axios.get(`http://172.17.0.1:4000/fd/${req.query.singleFD}`))
+      fd = (await axios.get(`${process.env.GROWW_URL}/fd/${req.query.singleFD}`))
         .data;
     }
     const question = await Question.findById(id).lean();
@@ -103,7 +103,7 @@ export const getQuestions: RequestHandler = async (req, res) => {
     let user: any = {};
     if (req.query.userId) {
       user = (
-        await axios.get(`http://172.17.0.1:4000/user/${req.query.userId}`)
+        await axios.get(`${process.env.GROWW_URL}/user/${req.query.userId}`)
       ).data;
       if (user.kyc_status === "COMPLETED") {
         evalCondition.push(EVAL_CONDITION.KYC_IS_COMPLETE);
